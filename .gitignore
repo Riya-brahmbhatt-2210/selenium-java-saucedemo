@@ -8,3 +8,6 @@ target/
 
 # Java compiled files
 *.class
+
+# TestNG reports
+test-output/
