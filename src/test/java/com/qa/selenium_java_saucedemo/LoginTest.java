@@ -11,41 +11,40 @@ import org.testng.annotations.Test;
 public class LoginTest {
 
 	WebDriver driver;
-	
+	LoginPage loginPage;
+
 	@BeforeMethod
 	public void setUp() {
 		driver = new ChromeDriver();
 		driver.get("https://www.saucedemo.com/");
+		loginPage = new LoginPage(driver);
 	}
-	
-	
+
 	@Test
 	public void validLoginTest() {
 		// TODO Auto-generated method stub
-			
-			driver.findElement(By.id("user-name")).sendKeys("standard_user");
-			driver.findElement(By.id("password")).sendKeys("secret_sauce");
-			
-			driver.findElement(By.id("login-button")).click(); 
-			
-			Assert.assertEquals(driver.findElement(By.cssSelector(".header_secondary_container .title")).getText(),"Products");
-			
+
+		loginPage.enterUsername("standard_user");
+		loginPage.enterPassword("secret_sauce");
+		loginPage.clickLogin();
+
+		Assert.assertEquals(driver.findElement(By.cssSelector(".header_secondary_container .title")).getText(),
+				"Products");
+
 	}
-	
+
 	@Test
 	public void invalidLoginTest() {
-			
-		
-			driver.findElement(By.id("user-name")).sendKeys("standard_user1");
-			driver.findElement(By.id("password")).sendKeys("secret_sauce122");
-			
-			driver.findElement(By.id("login-button")).click(); 
-			
-			Assert.assertEquals(driver.findElement(By.cssSelector("h3[data-test='error']")).getText(),"Epic sadface: Username and password do not match any user in this service");
-			
-			
+
+		loginPage.enterUsername("standard_user1");
+		loginPage.enterPassword("secret_sauce222");
+		loginPage.clickLogin();
+
+		Assert.assertEquals(loginPage.getLoginErrorMessage(),
+				"Epic sadface: Username and password do not match any user in this service");
+
 	}
-	
+
 	@AfterMethod
 	public void tearDown() {
 		driver.quit();
