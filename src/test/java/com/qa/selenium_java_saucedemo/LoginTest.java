@@ -1,37 +1,30 @@
 package com.qa.selenium_java_saucedemo;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class LoginTest {
+public class LoginTest extends BaseTest {
 
-	WebDriver driver;
 	LoginPage loginPage;
-
+	ProductsPage productsPage;
+	
 	@BeforeMethod
-	public void setUp() {
-		driver = new ChromeDriver();
-		driver.get("https://www.saucedemo.com/");
+	public void initialize() {
 		loginPage = new LoginPage(driver);
 	}
 
 	@Test
 	public void validLoginTest() {
-		// TODO Auto-generated method stub
 
 		loginPage.enterUsername("standard_user");
 		loginPage.enterPassword("secret_sauce");
-		loginPage.clickLogin();
+		productsPage=loginPage.clickLogin();
 
-		Assert.assertEquals(driver.findElement(By.cssSelector(".header_secondary_container .title")).getText(),
+		Assert.assertEquals(productsPage.getPageTitle(),
 				"Products");
 
 	}
+	
 
 	@Test
 	public void invalidLoginTest() {
@@ -45,9 +38,5 @@ public class LoginTest {
 
 	}
 
-	@AfterMethod
-	public void tearDown() {
-		driver.quit();
-	}
-
+	
 }

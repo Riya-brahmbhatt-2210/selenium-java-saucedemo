@@ -21,8 +21,9 @@ public class LoginPage {
 	public void enterPassword(String password) {
 		driver.findElement(this.password).sendKeys(password);
 	}
-	public void clickLogin() {
+	public ProductsPage clickLogin() {
 		driver.findElement(loginBtn).click();
+		return new ProductsPage(driver);
 	}
 	
 	public String getLoginErrorMessage() {
