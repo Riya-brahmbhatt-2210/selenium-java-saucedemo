@@ -26,6 +26,12 @@ public class LoginPage {
 		return new ProductsPage(driver);
 	}
 	
+	public ProductsPage login(String username, String password) {
+		enterUsername(username);
+		enterPassword(password);
+		return clickLogin();
+	}
+	
 	public String getLoginErrorMessage() {
 		return driver.findElement(loginError).getText();
 	}
