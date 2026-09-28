@@ -21,6 +21,7 @@ public class CartPage {
 	}
 	
 	public String getProductAdded() {
+		System.out.println("Cart URL: " + driver.getCurrentUrl());
 		return driver.findElement(productName).getText();
 	}
 	

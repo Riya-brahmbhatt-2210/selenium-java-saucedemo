@@ -10,7 +10,7 @@ public class ProductTest extends BaseTest{
 	ProductsPage productsPage;
 	CartPage cartPage;
 	
-	String product="sauce-labs-Backpack";
+	String product="sauce-labs-backpack";
 	
 	@BeforeMethod
 	public void initialize() {
@@ -19,10 +19,10 @@ public class ProductTest extends BaseTest{
 
 	@Test
 	public void verifyBackpackAddedToCart() {
-		productsPage=loginPage.login("standard_user1","secret_sauce222");
+		productsPage=loginPage.login("standard_user","secret_sauce");
 		productsPage.addProductToCart(product);
 		cartPage=productsPage.clickCartIcon();
 		String cartProduct = cartPage.getProductAdded();
-		Assert.assertEquals(product.replace("-", " "), cartProduct);
+		Assert.assertEquals("Sauce Labs Backpack", cartProduct);
 	}
 }

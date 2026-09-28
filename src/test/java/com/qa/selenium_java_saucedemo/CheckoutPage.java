@@ -1,7 +1,11 @@
 package com.qa.selenium_java_saucedemo;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CheckoutPage {
 	
@@ -23,6 +27,8 @@ public class CheckoutPage {
 	}
 	
 	public void enterFirstName(String firstName) {
+		System.out.println("About to fill checkout form");
+		System.out.println("Current URL: " + driver.getCurrentUrl());
 		driver.findElement(firstNameInput).sendKeys(firstName);
 	}
 	
@@ -36,16 +42,25 @@ public class CheckoutPage {
 	}
 	
 	public void fillCheckoutForm(String firstName, String lastName, String postalCode) {
+		System.out.println("Checkout URL: " + driver.getCurrentUrl());
+		System.out.println("Checkout title: " + driver.getTitle());
 		enterFirstName(firstName);
 		enterLastName(lastName);
 		enterPostalCode(postalCode);
 	}
 	
 	public void submitCheckoutForm() {
-		driver.findElement(continueButton).click();
+		 driver.findElement(continueButton).click();
+
+		    System.out.println("After Continue URL: " + driver.getCurrentUrl());
+		    System.out.println("Page source contains finish: " + driver.getPageSource().contains("finish"));
+
 	}
 	
 	public void completeCheckoutForm() {
+
+		WebDriverWait w =new WebDriverWait(driver, Duration.ofSeconds(5));
+		w.until(ExpectedConditions.elementToBeClickable(finishButton));
 		driver.findElement(finishButton).click();
 	}
 	
@@ -56,6 +71,9 @@ public class CheckoutPage {
 	public void checkout(String firstName, String lastName, String postalCode) {
 		fillCheckoutForm(firstName, lastName, postalCode);
 		submitCheckoutForm();	
+		System.out.println("Current URL: " + driver.getCurrentUrl());
+		System.out.println("Current title: " + driver.getTitle());
+		System.out.println("Page source contains finish: " + driver.getPageSource().contains("finish"));
 		completeCheckoutForm();
 	}
 	
