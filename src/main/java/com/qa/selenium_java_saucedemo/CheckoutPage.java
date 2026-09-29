@@ -22,13 +22,13 @@ public class CheckoutPage {
 	
 	private By backToHomeButton = By.id("back-to-products");
 	
+	private By errorMsg = By.cssSelector("h3[data-test='error']");
+	
 	public CheckoutPage(WebDriver driver) {
 		this.driver = driver;
 	}
 	
 	public void enterFirstName(String firstName) {
-		System.out.println("About to fill checkout form");
-		System.out.println("Current URL: " + driver.getCurrentUrl());
 		driver.findElement(firstNameInput).sendKeys(firstName);
 	}
 	
@@ -42,8 +42,6 @@ public class CheckoutPage {
 	}
 	
 	public void fillCheckoutForm(String firstName, String lastName, String postalCode) {
-		System.out.println("Checkout URL: " + driver.getCurrentUrl());
-		System.out.println("Checkout title: " + driver.getTitle());
 		enterFirstName(firstName);
 		enterLastName(lastName);
 		enterPostalCode(postalCode);
@@ -51,14 +49,9 @@ public class CheckoutPage {
 	
 	public void submitCheckoutForm() {
 		 driver.findElement(continueButton).click();
-
-		    System.out.println("After Continue URL: " + driver.getCurrentUrl());
-		    System.out.println("Page source contains finish: " + driver.getPageSource().contains("finish"));
-
 	}
 	
 	public void completeCheckoutForm() {
-
 		WebDriverWait w =new WebDriverWait(driver, Duration.ofSeconds(5));
 		w.until(ExpectedConditions.elementToBeClickable(finishButton));
 		driver.findElement(finishButton).click();
@@ -71,10 +64,11 @@ public class CheckoutPage {
 	public void checkout(String firstName, String lastName, String postalCode) {
 		fillCheckoutForm(firstName, lastName, postalCode);
 		submitCheckoutForm();	
-		System.out.println("Current URL: " + driver.getCurrentUrl());
-		System.out.println("Current title: " + driver.getTitle());
-		System.out.println("Page source contains finish: " + driver.getPageSource().contains("finish"));
 		completeCheckoutForm();
+	}
+	
+	public String getErrorMessage() {
+		return driver.findElement(errorMsg).getText();
 	}
 	
 	public ProductsPage clickBackToHomeButton() {

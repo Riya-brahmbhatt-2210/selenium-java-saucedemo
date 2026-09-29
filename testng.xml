@@ -1,0 +1,9 @@
+<suite name="RegressionTestSuite">
+	<test name="FunctionalTests">
+		<classes>
+			<class name="com.qa.selenium_java_saucedemo.tests.LoginTest"/>
+			<class name="com.qa.selenium_java_saucedemo.tests.ProductTest"/>
+			<class name="com.qa.selenium_java_saucedemo.tests.CheckoutTest"/>
+		</classes>
+	</test>
+</suite>

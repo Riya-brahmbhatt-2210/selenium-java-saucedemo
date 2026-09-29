@@ -27,7 +27,7 @@ public class LoginPage {
 	}
 	
 	public ProductsPage login(String username, String password) {
-		enterUsername(username);
+		enterUsername(username);  
 		enterPassword(password);
 		return clickLogin();
 	}

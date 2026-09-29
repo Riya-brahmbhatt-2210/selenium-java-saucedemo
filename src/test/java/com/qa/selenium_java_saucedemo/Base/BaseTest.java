@@ -1,4 +1,4 @@
-package com.qa.selenium_java_saucedemo;
+package com.qa.selenium_java_saucedemo.Base;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,9 +13,9 @@ import org.testng.annotations.BeforeMethod;
 
 public class BaseTest {
 
-	WebDriver driver;
-	ChromeOptions options;
-	Map<String, Object> prefs;
+	protected WebDriver driver;
+	protected ChromeOptions options;
+	protected Map<String, Object> prefs;
 	
 	
 	@BeforeMethod
